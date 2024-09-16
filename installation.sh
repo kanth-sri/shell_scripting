@@ -1,6 +1,7 @@
 #!/bin/bash
 
 USER_ID=$(id -u)
+package=mysql
 
 if [ $USER_ID -ne 0 ]  
 then 
@@ -8,13 +9,17 @@ then
     exit 1
 fi
 
-dnf list installed git
+dnf list installed $package
 
 if [ $? -eq 0 ]
 then
-    echo "Git is already installed....nothing todo"
+    echo "$package is already installed....nothing todo"
 else
-    echo "Git is not installed.., installing now"
-    dnf install git -y
-    
+    echo "$package is not installed.., installing now"
+    dnf install $package -y
+    if [ $? -eq 0 ]
+    then
+        echo "$package  installation....SUCCESS"
+    else
+        echo "$package installation...FAILED"
 fi
