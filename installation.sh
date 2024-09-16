@@ -22,4 +22,5 @@ else
         echo "$package  installation....SUCCESS"
     else
         echo "$package installation...FAILED"
+    fi
 fi
