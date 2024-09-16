@@ -1,7 +1,7 @@
 #!/bin/bash
 
 USER_ID=$(id -u)
-package=mysql
+package=mysqll
 
 if [ $USER_ID -ne 0 ]  
 then 
