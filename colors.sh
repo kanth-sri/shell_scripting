@@ -1,6 +1,7 @@
 #!/bin/bash
 
 USER_ID=$(id -u)
+package="mysql"
 #color codes in linux shell scripting
 R="\e[31m"
 G="\e[32m"
