@@ -4,7 +4,7 @@ USER_ID=$(id -u)
 package=mysql
 
 VALIDATE(){
-    if [ $? -eq 0 ]
+    if [ $1 -eq 0 ]
     then
         echo "$package  installation....SUCCESS"
     else
@@ -26,5 +26,5 @@ then
 else
     echo "$package is not installed.., installing now"
     dnf install $package -y
-    VALIDATE
+    VALIDATE $?
 fi

@@ -11,7 +11,27 @@ CHECK_ROOT(){
     if [ $USER_ID -nq 0 ]
     then
         echo -e " $R Please execute this script with root priviliges... $N"
+        exit 1
     fi
 }
 
+VALIDATE(){
+    if [ $1 -eq 0 ]
+    then
+        echo "$package  installation....SUCCESS"
+    else
+        echo "$package installation...FAILED"
+    fi
+}
 CHECK_ROOT
+
+dnf list installed $package
+
+if [ $? -eq 0 ]
+then
+    echo "$package $G is already installed $N ....nothing todo"
+else
+    echo "$package $R is not installed $N.., installing now"
+    dnf install $package -y
+    VALIDATE $?
+fi
