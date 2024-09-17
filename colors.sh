@@ -8,7 +8,7 @@ Y="\e[33m"
 N="\e[0m"
 
 CHECK_ROOT(){
-    if [ $USER_ID -nq 0 ]
+    if [ $USER_ID -ne 0 ]
     then
         echo -e " $R Please execute this script with root priviliges... $N"
         exit 1
