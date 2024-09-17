@@ -2,7 +2,7 @@
 
 USER_ID=$(id -u)
 LOG_FOLDER=/var/log/script-logs/
-=$(date +%Y-%m-%d-%H-%M-%S)
+TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
 LOG_FILE="$0-$TIMESTAMP.log"
 echo "$LOG_FILE"
 R="\e[31m"
