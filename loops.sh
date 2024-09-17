@@ -1,8 +1,7 @@
 #!/bin/bash
 
 USER_ID=$(id -u)
-package="mysql"
-#color codes in linux shell scripting
+
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
@@ -24,15 +23,26 @@ VALIDATE(){
         echo -e "$package installation...$R FAILED $N"
     fi
 }
+USAGE(){
+    echo -e "$Y USAGE: $0 package1 package2 .. $N"
+    exit 1
+}
 CHECK_ROOT
-
-dnf list installed $package
-
-if [ $? -eq 0 ]
+if [ $# -eq 0 ]
 then
-    echo -e "$package $G is already installed $N ....nothing todo"
-else
-    echo -e "$package $R is not installed $N.., installing now"
-    dnf install $package -y
-    VALIDATE $?
+    USAGE
 fi
+
+for package in $@
+do
+    dnf list installed $package
+    if [ $? -eq 0 ]
+    then
+        echo -e "$package $G is already installed $N ....nothing todo"
+    else
+        echo -e "$package $R is not installed $N.., installing now"
+        dnf install $package -y
+        VALIDATE $?
+    fi
+
+done
