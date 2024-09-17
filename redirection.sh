@@ -14,7 +14,7 @@ N="\e[0m"
 CHECK_ROOT(){
     if [ $USER_ID -ne 0 ]
     then
-        echo -e " $R Please execute this script with root priviliges... $N" &>>$LOG_FILE
+        echo -e " $R Please execute this script with root priviliges... $N" &>>$LOG_FOLDER/$LOG_FILE
         exit 1
     fi
 }
@@ -32,6 +32,8 @@ USAGE(){
     exit 1
 }
 CHECK_ROOT
+mkdir -p $LOG_FOLDER
+
 if [ $# -eq 0 ]
 then
     USAGE
