@@ -18,9 +18,9 @@ CHECK_ROOT(){
 VALIDATE(){
     if [ $1 -eq 0 ]
     then
-        echo "$package  installation....SUCCESS"
+        echo "$package  installation....$G SUCCESS $N"
     else
-        echo "$package installation...FAILED"
+        echo "$package installation...$R FAILED $N"
     fi
 }
 CHECK_ROOT
