@@ -5,7 +5,7 @@ LOG_FOLDER=/var/log/script-logs/
 TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 LOG_FILE="$SCRIPT_NAME-$TIMESTAMP.log"
-echo "$LOG_FILE"
+
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
@@ -14,7 +14,7 @@ N="\e[0m"
 CHECK_ROOT(){
     if [ $USER_ID -ne 0 ]
     then
-        echo -e " $R Please execute this script with root priviliges... $N"
+        echo -e " $R Please execute this script with root priviliges... $N" &>>$LOG_FILE
         exit 1
     fi
 }
