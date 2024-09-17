@@ -4,8 +4,8 @@ USER_ID=$(id -u)
 LOG_FOLDER=/var/log/script-logs/
 TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
-LOG_FILE="$0-$TIMESTAMP.log"
-echo "$SCRIPT_NAME"
+LOG_FILE="$SCRIPT_NAME-$TIMESTAMP.log"
+echo "$LOG_FILE"
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
