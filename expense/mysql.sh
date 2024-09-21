@@ -14,7 +14,7 @@ N="\e[0m"
 CHECK_ROOT(){
     if [ $USER_ID -ne 0 ]
     then
-        echo -e " $R Please execute this script with root priviliges... $N" | tee -a $LOG_FILE
+        echo -e " $R Please execute this script with root priviliges... $N" 
         exit 1
     fi
 }
