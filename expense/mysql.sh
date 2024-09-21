@@ -41,7 +41,7 @@ VALIDATE $? "Enablin mysql"
 systemctl start mysqld | &>>$LOG_FILE
 VALIDATE $? "Starting mysql"
 
-mysql -h mysql.srikanthadepu.online -u root -pExpenseApp@1 -e 'show databases';  | tee -a $LOG_FILE
+mysql -h mysql.srikanthadepu.online -u root -pExpenseApp@1 -e 'show databases';  &>>$LOG_FILE
 if [ $? -ne 0 ]
 then
     echo -e "RootPassword $R not configured $N setting now.." | tee -a $LOG_FILE
