@@ -32,8 +32,15 @@ mkdir -p $LOG_FOLDER
 
 echo "Script execution started at: $(date)" | tee -a $LOG_FILE
 
-dnf install mysql-server -y  &>>$LOG_FILE
-VALIDATE $? "Installing mysql"
+mysql --version &>>$LOG_FILE
+if [ $? -ne 0 ]
+then
+    echo -e "Mysql server is not installed, $G installing now $N" | tee -a $LOG_FILE
+    dnf install mysql-server -y  &>>$LOG_FILE
+    VALIDATE $? "Installing mysql"
+else 
+    echo -e "MYSQL server is already installed, $Y SKIPPING $N" | tee -a $LOG_FILE
+fi
 
 systemctl enable mysqld  &>>$LOG_FILE
 VALIDATE $? "Enablin mysql"
