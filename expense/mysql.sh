@@ -32,13 +32,13 @@ mkdir -p $LOG_FOLDER
 
 echo "Script execution started at: $(date)" | tee -a $LOG_FILE
 
-dnf install mysql-server -y | &>>$LOG_FILE
+dnf install mysql-server -y  &>>$LOG_FILE
 VALIDATE $? "Installing mysql"
 
-systemctl enable mysqld | &>>$LOG_FILE
+systemctl enable mysqld  &>>$LOG_FILE
 VALIDATE $? "Enablin mysql"
 
-systemctl start mysqld | &>>$LOG_FILE
+systemctl start mysqld  &>>$LOG_FILE
 VALIDATE $? "Starting mysql"
 
 mysql -h mysql.srikanthadepu.online -u root -pExpenseApp@1 -e 'show databases;' &>>$LOG_FILE
