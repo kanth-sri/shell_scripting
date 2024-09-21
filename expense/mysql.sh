@@ -31,3 +31,23 @@ CHECK_ROOT
 mkdir -p $LOG_FOLDER
 
 echo "Script execution started at: $(date)" | tee -a $LOG_FILE
+
+dnf install mysql-server -y | tee -a $LOG_FILE
+VALIDATE $? "Installing mysql"
+
+systemctl enable mysqld | tee -a $LOG_FILE
+VALIDATE $? "Enablin mysql"
+
+systemctl start mysqld | tee -a $LOG_FILE
+VALIDATE $? "Starting mysql"
+
+mysql -h mysql.srikanthadepu.online -u root -pExpenseApp@1 'showdatabases'; | tee -a $LOG_FILE
+if [ $? -ne 0 ]
+then
+    echo -e "RootPassword $R not configured $N setting now.."
+    mysql_secure_installation --set-root-pass ExpenseApp@1 | tee -a $LOG_FILE
+    VALIDATE $? "Rootpassword setup"
+else
+    echo -e "Rootpassword already configured...$Y SKIPPING $N"
+fi
+
