@@ -41,14 +41,23 @@ VALIDATE $? "Enablin mysql"
 systemctl start mysqld | &>>$LOG_FILE
 VALIDATE $? "Starting mysql"
 
-mysql -h mysql.srikanthadepu.online -u root -pExpenseApp@1 -e 'show databases';  &>>$LOG_FILE
+# mysql -h mysql.srikanthadepu.online -u root -pExpenseApp@1 -e 'show databases';  &>>$LOG_FILE
+# if [ $? -ne 0 ]
+# then
+#     echo -e "RootPassword $R not configured $N setting now.." | tee -a $LOG_FILE
+#     mysql_secure_installation --set-root-pass ExpenseApp@1 | &>>$LOG_FILE
+#     VALIDATE $? "Rootpassword setup"
+# else
+#     echo -e "Rootpassword already configured...$Y SKIPPING $N" | tee -a $LOG_FILE
+# fi
+mysql -h mysql.srikanthadepu.online -u root -pExpenseApp@1 -e 'show databases;' &>>$LOG_FILE
 if [ $? -ne 0 ]
 then
-    echo -e "RootPassword $R not configured $N setting now.." | tee -a $LOG_FILE
-    mysql_secure_installation --set-root-pass ExpenseApp@1 | &>>$LOG_FILE
-    VALIDATE $? "Rootpassword setup"
+    echo "MySQL root password is not setup, setting now" &>>$LOG_FILE
+    mysql_secure_installation --set-root-pass ExpenseApp@1
+    VALIDATE $? "Setting UP root password"
 else
-    echo -e "Rootpassword already configured...$Y SKIPPING $N" | tee -a $LOG_FILE
+    echo -e "MySQL root password is already setup...$Y SKIPPING $N" | tee -a $LOG_FILE
 fi
 
 
