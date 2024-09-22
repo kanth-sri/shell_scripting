@@ -32,6 +32,7 @@ CHECK_ROOT
 mkdir -p $LOG_FOLDER
 echo "Script execution started at: $(date)" | tee -a $LOG_FILE
 
+echo "${NODE_VER}"
 if [ $NODE_VER == v20.* ]
 then 
     echo "ok"
