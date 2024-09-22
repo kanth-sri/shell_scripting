@@ -32,21 +32,25 @@ CHECK_ROOT
 mkdir -p $LOG_FOLDER
 echo "Script execution started at: $(date)" | tee -a $LOG_FILE
 
-echo "${NODE_VER}"
 if [ $NODE_VER == "v20" ]
 then 
-    echo "ok"
+    echo -e "Nodejs:v20 is already installed... $Y SKIPPING $N"
+else
+    dnf module disable nodejs -y &>>$LOG_FILE
+    VALIDATE $? "Disabling nodejs"
+
+    dnf module enable nodejs:20 -y &>>$LOG_FILE
+    VALIDATE $? "Enabling nodejs:20"
+
+    dnf install nodejs -y &>>$LOG_FILE
+    VALIDATE $? "Installing nodejs"
 fi
 
-
-# dnf module disable nodejs -y &>>$LOG_FILE
-# VALIDATE $? "Disabling nodejs"
-
-# dnf module enable nodejs:20 -y &>>$LOG_FILE
-# VALIDATE $? "Enabling nodejs:20"
-
-# dnf install nodejs -y &>>$LOG_FILE
-# VALIDATE $? "Installing nodejs"
-
-# useradd expense &>>$LOG_FILE
-# VALIDATE $? "creating expense user"
+id expense
+if [ $? -ne 0 ]
+then
+    useradd expense &>>$LOG_FILE
+    VALIDATE $? "creating expense user"
+else 
+    echo -e "expense user  $G already exists $N"
+fi
