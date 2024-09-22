@@ -55,3 +55,18 @@ else
     echo -e "expense user  already exists... $Y SKIPPING $N"
 fi
 
+mkdir -p /app &>>$LOG_FILE
+
+curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>$LOG_FILE
+VALIDATE $? "Downloading backend code"
+
+cd /app
+unzip /tmp/backend.zip &>>$LOG_FILE
+VALIDATE $? "Unzip backend code into app dir"
+
+cd /app
+npm install &>>$LOG_FILE
+VALIDATE $? "Installing dependencies"
+
+cp /home/ec2-user/shell_scripting/expense/backend.service /etc/systemd/system/backend.service
+VALIDATE $? "copy of backend service file"
