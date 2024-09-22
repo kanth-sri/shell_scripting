@@ -72,3 +72,17 @@ VALIDATE $? "Installing dependencies"
 cp /home/ec2-user/shell_scripting/expense/backend.service /etc/systemd/system/backend.service &>>$LOG_FILE
 VALIDATE $? "copy of backend service file"
 
+systemctl daemon-reload &>>$LOG_FILE
+VALIDATE $? "Daemon-reload"
+
+dnf install mysql -y &>>$LOG_FILE
+VALIDATE $? "Installing mysql client"
+
+mysql -h mysql.srikanthadepu.online -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$LOG_FILE
+VALIDATE $? "Loading schema"
+
+systemctl restart backend &>>$LOG_FILE
+VALIDATE $? "Starting backend"
+
+systemctl enable backend &>>$LOG_FILE
+VALIDATE $? "Enabling backend"
