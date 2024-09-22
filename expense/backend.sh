@@ -32,7 +32,7 @@ CHECK_ROOT
 mkdir -p $LOG_FOLDER
 echo "Script execution started at: $(date)" | tee -a $LOG_FILE
 
-if [ $NODE_VER == "v20" ]
+if [ $NODE_VER -eq "v20" ]
 then 
     echo -e "Nodejs:v20 is already installed... $Y SKIPPING $N"
 else
@@ -46,7 +46,7 @@ else
     VALIDATE $? "Installing nodejs"
 fi
 
-id expense
+id expense &>>$LOG_FILE
 if [ $? -ne 0 ]
 then
     useradd expense &>>$LOG_FILE
@@ -54,3 +54,4 @@ then
 else 
     echo -e "expense user  already exists... $Y SKIPPING $N"
 fi
+
