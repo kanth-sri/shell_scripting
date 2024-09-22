@@ -5,7 +5,7 @@ LOG_FOLDER=/var/log/expense
 TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 LOG_FILE="$LOG_FOLDER/$SCRIPT_NAME-$TIMESTAMP.log"
-NODE_VER=$(node -v)
+NODE_VER=$(node -v | cut -d "." -f1) 
 
 R="\e[31m"
 G="\e[32m"
