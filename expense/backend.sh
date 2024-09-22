@@ -34,7 +34,7 @@ echo "Script execution started at: $(date)" | tee -a $LOG_FILE
 
 if [ $NODE_VER == "v20" ]
 then 
-    echo -e "Nodejs:v20 is already installed... $Y SKIPPING $N"
+    echo -e "Nodejs:v20 is already installed... $Y SKIPPING $N" | tee -a $LOG_FILE
 else
     dnf module disable nodejs -y &>>$LOG_FILE
     VALIDATE $? "Disabling nodejs"
@@ -52,7 +52,7 @@ then
     useradd expense &>>$LOG_FILE
     VALIDATE $? "creating expense user"
 else 
-    echo -e "expense user  already exists... $Y SKIPPING $N"
+    echo -e "expense user  already exists... $Y SKIPPING $N" | tee -a $LOG_FILE
 fi
 
 mkdir -p /app &>>$LOG_FILE
@@ -71,3 +71,4 @@ VALIDATE $? "Installing dependencies"
 
 cp /home/ec2-user/shell_scripting/expense/backend.service /etc/systemd/system/backend.service &>>$LOG_FILE
 VALIDATE $? "copy of backend service file"
+
