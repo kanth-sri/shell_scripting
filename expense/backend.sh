@@ -29,6 +29,7 @@ VALIDATE(){
 }
 CHECK_ROOT
 mkdir -p $LOG_FOLDER
+echo "Script execution started at: $(date)" | tee -a $LOG_FILE
 
 dnf module disable nodejs -y &>>$LOG_FILE
 VALIDATE $? "Disabling nodejs"
