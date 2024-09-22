@@ -32,7 +32,7 @@ CHECK_ROOT
 mkdir -p $LOG_FOLDER
 echo "Script execution started at: $(date)" | tee -a $LOG_FILE
 
-if [ $NODE_VER -eq "v20" ]
+if [ $NODE_VER == "v20" ]
 then 
     echo -e "Nodejs:v20 is already installed... $Y SKIPPING $N"
 else
