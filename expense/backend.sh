@@ -5,6 +5,7 @@ LOG_FOLDER=/var/log/expense
 TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 LOG_FILE="$LOG_FOLDER/$SCRIPT_NAME-$TIMESTAMP.log"
+NODE_VER=$(node -v)
 
 R="\e[31m"
 G="\e[32m"
@@ -31,14 +32,20 @@ CHECK_ROOT
 mkdir -p $LOG_FOLDER
 echo "Script execution started at: $(date)" | tee -a $LOG_FILE
 
-dnf module disable nodejs -y &>>$LOG_FILE
-VALIDATE $? "Disabling nodejs"
+if [ $NODE_VER == v20.*]
+then 
+    echo "ok"
+fi
 
-dnf module enable nodejs:20 -y &>>$LOG_FILE
-VALIDATE $? "Enabling nodejs:20"
 
-dnf install nodejs -y &>>$LOG_FILE
-VALIDATE $? "Installing nodejs"
+# dnf module disable nodejs -y &>>$LOG_FILE
+# VALIDATE $? "Disabling nodejs"
 
-useradd expense &>>$LOG_FILE
-VALIDATE $? "creating expense user"
+# dnf module enable nodejs:20 -y &>>$LOG_FILE
+# VALIDATE $? "Enabling nodejs:20"
+
+# dnf install nodejs -y &>>$LOG_FILE
+# VALIDATE $? "Installing nodejs"
+
+# useradd expense &>>$LOG_FILE
+# VALIDATE $? "creating expense user"
